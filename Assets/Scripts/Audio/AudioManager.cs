@@ -26,11 +26,13 @@ public class AudioManager : MonoBehaviour {
 		{
 			EventManager.StartListening("PickUpTile", PickUpTile);
 			EventManager.StartListening("DropTile", DropTile);
+			EventManager.StartListening("Celebrate", Celebrate);
 		}
 		void OnDisable()
 		{
 			EventManager.StopListening("PickUpTile", PickUpTile);
 			EventManager.StopListening("DropTile", DropTile);
+			EventManager.StopListening("Celebrate", Celebrate);
 		}
 		
 		void PickUpTile()
@@ -40,6 +42,10 @@ public class AudioManager : MonoBehaviour {
 		void DropTile()
 		{
 			PlaySound("click1");
+		}
+		void Celebrate()
+		{
+			PlaySound("cheer");
 		}
 		public AudioClip GetAudioClipFromResources(string audioClipName)
 		{

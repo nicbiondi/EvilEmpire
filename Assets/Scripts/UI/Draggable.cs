@@ -4,11 +4,16 @@ using UnityEngine.EventSystems;
 
 public class Draggable : MonoBehaviour, IDragHandler,IBeginDragHandler,IEndDragHandler{
 	public Transform originalParent = null;
+	public CanvasGroup canvasGroup;
+	void Start()
+	{
+		canvasGroup = GetComponent<CanvasGroup>();
+	}
 	public void OnBeginDrag(PointerEventData eventData)
 	{
 		originalParent = transform.parent;
 		transform.SetParent(transform.parent.parent);
-		GetComponent<CanvasGroup>().blocksRaycasts = false;
+		SetRaycastBlocking(false);
 		EventManager.TriggerEvent("PickUpTile");
 	}
 	public void OnDrag(PointerEventData eventData)
@@ -18,7 +23,11 @@ public class Draggable : MonoBehaviour, IDragHandler,IBeginDragHandler,IEndDragH
 	public void OnEndDrag(PointerEventData eventData)
 	{
 		transform.SetParent(originalParent);
-		GetComponent<CanvasGroup>().blocksRaycasts = true;
+		SetRaycastBlocking(true);
 		EventManager.TriggerEvent("DropTile");
+	}
+	public void SetRaycastBlocking(bool isBlocking)
+	{
+		canvasGroup.blocksRaycasts =isBlocking;
 	}
 }
