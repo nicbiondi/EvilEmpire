@@ -22,6 +22,25 @@ public class AudioManager : MonoBehaviour {
 		void Start () {
 			//game = Game.Instance;
 		}
+		void OnEnable()
+		{
+			EventManager.StartListening("PickUpTile", PickUpTile);
+			EventManager.StartListening("DropTile", DropTile);
+		}
+		void OnDisable()
+		{
+			EventManager.StopListening("PickUpTile", PickUpTile);
+			EventManager.StopListening("DropTile", DropTile);
+		}
+		
+		void PickUpTile()
+		{
+			PlaySound("click0");
+		}
+		void DropTile()
+		{
+			PlaySound("click1");
+		}
 		public AudioClip GetAudioClipFromResources(string audioClipName)
 		{
 			AudioClip soundClip = (AudioClip) Resources.Load("Audio/"+audioClipName);

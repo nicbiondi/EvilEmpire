@@ -9,6 +9,7 @@ public class Draggable : MonoBehaviour, IDragHandler,IBeginDragHandler,IEndDragH
 		originalParent = transform.parent;
 		transform.SetParent(transform.parent.parent);
 		GetComponent<CanvasGroup>().blocksRaycasts = false;
+		EventManager.TriggerEvent("PickUpTile");
 	}
 	public void OnDrag(PointerEventData eventData)
 	{
@@ -18,5 +19,6 @@ public class Draggable : MonoBehaviour, IDragHandler,IBeginDragHandler,IEndDragH
 	{
 		transform.SetParent(originalParent);
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
+		EventManager.TriggerEvent("DropTile");
 	}
 }
