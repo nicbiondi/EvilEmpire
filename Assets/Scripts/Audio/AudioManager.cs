@@ -46,6 +46,7 @@ public class AudioManager : MonoBehaviour {
 		void Celebrate()
 		{
 			PlaySound("cheer");
+			PlaySound("JapDrumRoll");
 		}
 		public AudioClip GetAudioClipFromResources(string audioClipName)
 		{

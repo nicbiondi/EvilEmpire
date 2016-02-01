@@ -11,13 +11,22 @@ public class Game : MonoBehaviour {
 	
 	// Use this for initialization
 	void Awake () {
+		DontDestroyOnLoad(gameObject);//keep object from being destroyed for use in to perserve game state in subsequent levels
 		instance = this;
 
 	}
-	
+	void OnLevelWasLoaded(int levelNum)
+	{
+		EventManager.TriggerEvent("NewLevel");
+	}
+	void Start()
+	{
+		Application.LoadLevel("Level1");//boot to first level after initializing
+	}
 	void OnEnable()
 	{
 		EventManager.StartListening("CheckGameState", CheckGameState);
+
 	}
 	
 	void OnDisable()
@@ -51,7 +60,8 @@ public class Game : MonoBehaviour {
 	}
 	void RestartLevel()
 	{
-		Application.LoadLevel(0);
+		EventManager.TriggerEvent("LevelEnded");
+		Application.LoadLevel("Level1");
 	}
 	
 }
