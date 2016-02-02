@@ -4,23 +4,11 @@ using System.IO;
 public class AudioManager : MonoBehaviour {
 
 
-//		Game game;
-//		public string explosionSound = "boom";
-//		public string thrusterSound = "thruster";
-//		public string sideThrusterSound = "sideThruster";
-//		public string winSound = "clapping";
-//		public string roundBeginSound = "gong";
-//		public string laserLoopSound = "LazerBeamloop";
-//		public string electricityLoopSound = "electricityLoop";
-//		public string landingGearCollisionSound = "thud";
-//		public string UIFlipSound = "UIFlip";
-//		public string UISelectSound = "UISelect";
-//		public string UICurs0rMove = "CursorMove";
-		
-		
+		Game game;
+			
 		// Use this for initialization
 		void Start () {
-			//game = Game.Instance;
+			game = Game.Instance;
 		}
 		void OnEnable()
 		{
@@ -45,7 +33,11 @@ public class AudioManager : MonoBehaviour {
 		}
 		void Celebrate()
 		{
-			PlaySound("cheer");
+			if(game.gameState == GameState.QUITTING)
+				PlaySound("boo");
+			else
+				PlaySound("cheer");
+				
 			PlaySound("JapDrumRoll");
 		}
 		public AudioClip GetAudioClipFromResources(string audioClipName)

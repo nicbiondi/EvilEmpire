@@ -34,8 +34,10 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 		Draggable draggable = eventdata.pointerDrag.GetComponent<Draggable>();
 		if(draggable != null && validDropArea)
 		{
+			
 			string tileText = eventdata.pointerDrag.GetComponentInChildren<Text>().text;
-			if(tileText.ToLower() == answer)//if correct letter was placed
+
+			if(tileText.ToLower() == answer || processSpecialCases(tileText))//if correct letter was placed
 			{
 				validDropArea=false;//only allow one tile to be dropped
 	 			draggable.originalParent = transform;//set tile onto this dropzone
@@ -43,5 +45,20 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 				EventManager.TriggerEvent("CheckGameState");
 	 		}
 	 	}
+	}
+	public bool processSpecialCases(string text)
+	{
+		text = text.ToLower();
+		if(text.Equals("yes"))
+		{
+			game.gameState = GameState.RESTARTING;
+			return true;
+		}
+		else if(text.Equals("no"))
+		{
+			game.gameState = GameState.QUITTING;
+			return true;
+		}
+		return false;
 	}
 }
