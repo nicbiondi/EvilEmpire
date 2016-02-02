@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class Game : MonoBehaviour {
 
 	private static Game instance = null;
+	private int totalLevels = 3;
+	private int currentLevel = 1;
 	List<DropZone> SolutionList = new List<DropZone>();
 	//List<DropZone> BottomSolutionList = new List<DropZone>();
 	public static Game Instance { get { return instance; } }
@@ -17,6 +19,8 @@ public class Game : MonoBehaviour {
 	}
 	void OnLevelWasLoaded(int levelNum)
 	{
+		currentLevel=levelNum;
+		Debug.Log("current level is: " + currentLevel);
 		EventManager.TriggerEvent("NewLevel");
 	}
 	void Start()
@@ -40,8 +44,7 @@ public class Game : MonoBehaviour {
 		if(isSolutionComplete())
 		{
 			EventManager.TriggerEvent("Celebrate");
-			Invoke("RestartLevel",4f);
-			Debug.Log("we won!");
+			Invoke("Win",4f);
 		}
 	}
 	
@@ -58,10 +61,11 @@ public class Game : MonoBehaviour {
 	{
 		SolutionList.Add (dropzone);
 	}
-	void RestartLevel()
+	void Win()
 	{
+		
 		EventManager.TriggerEvent("LevelEnded");
-		Application.LoadLevel("Level1");
+		Application.LoadLevel(currentLevel+1);
 	}
 	
 }
