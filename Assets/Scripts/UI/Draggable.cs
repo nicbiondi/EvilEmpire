@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class Draggable : MonoBehaviour, IDragHandler,IBeginDragHandler,IEndDragHandler{
 	public Transform originalParent = null;
-	public CanvasGroup canvasGroup;
+	CanvasGroup canvasGroup;
 	void Start()
 	{
 		canvasGroup = GetComponent<CanvasGroup>();
@@ -19,6 +19,7 @@ public class Draggable : MonoBehaviour, IDragHandler,IBeginDragHandler,IEndDragH
 	public void OnDrag(PointerEventData eventData)
 	{
 		transform.position = eventData.position;
+		Debug.Log("eventData.position;" +eventData.position);
 	}
 	public void OnEndDrag(PointerEventData eventData)
 	{
