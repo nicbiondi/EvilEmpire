@@ -5,6 +5,17 @@ using UnityEngine.EventSystems;
 public class Draggable : MonoBehaviour, IDragHandler,IBeginDragHandler,IEndDragHandler{
 	public Transform originalParent = null;
 	CanvasGroup canvasGroup;
+	bool canMove = true;
+
+	public bool CanMove {
+		get {
+			return canMove;
+		}
+		set {
+			canMove = value;
+		}
+	}
+
 	void Start()
 	{
 		canvasGroup = GetComponent<CanvasGroup>();
@@ -24,7 +35,8 @@ public class Draggable : MonoBehaviour, IDragHandler,IBeginDragHandler,IEndDragH
 	public void OnEndDrag(PointerEventData eventData)
 	{
 		transform.SetParent(originalParent);
-		SetRaycastBlocking(true);
+		if(canMove)
+			SetRaycastBlocking(true);
 		EventManager.TriggerEvent("DropTile");
 	}
 	public void SetRaycastBlocking(bool isBlocking)

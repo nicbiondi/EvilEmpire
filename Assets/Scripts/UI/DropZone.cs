@@ -42,6 +42,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 				validDropArea=false;//only allow one tile to be dropped
 	 			draggable.originalParent = transform;//set tile onto this dropzone
 				draggable.SetRaycastBlocking(false);
+				draggable.CanMove = false;
 				EventManager.TriggerEvent("CheckGameState");
 	 		}
 	 	}
