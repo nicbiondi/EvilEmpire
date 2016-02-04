@@ -50,12 +50,12 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 	public bool processSpecialCases(string text)
 	{
 		text = text.ToLower();
-		if(text.Equals("yes"))
+		if(text.ToLower().Equals("yes"))
 		{
 			game.gameState = GameState.RESTARTING;
 			return true;
 		}
-		else if(text.Equals("no"))
+		else if(text.ToLower().Equals("no"))
 		{
 			game.gameState = GameState.QUITTING;
 			return true;

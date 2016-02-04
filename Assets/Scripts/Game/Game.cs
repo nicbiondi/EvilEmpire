@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Game : MonoBehaviour {
 
 	private static Game instance = null;
-	private int currentLevel = 1;
+	public int currentLevel = 1;
 	List<DropZone> SolutionList = new List<DropZone>();
 	//List<DropZone> BottomSolutionList = new List<DropZone>();
 	public static Game Instance { get { return instance; } }
@@ -19,13 +19,13 @@ public class Game : MonoBehaviour {
 	}
 	void OnLevelWasLoaded(int levelNum)
 	{
-		currentLevel=levelNum;
-		Debug.Log("current level is: " + currentLevel);
+		
+		Debug.Log("current level is: levelNumber: " + currentLevel + " levelName:" + Application.loadedLevelName);
 		EventManager.TriggerEvent("NewLevel");
 	}
 	void Start()
 	{
-		Application.LoadLevel("Level1");//boot to first level after initializing
+		Application.LoadLevel("Tutorial");//boot to first level after initializing
 	}
 	void OnEnable()
 	{
@@ -75,9 +75,9 @@ public class Game : MonoBehaviour {
 	}
 	public void RestartGame()
 	{
-		currentLevel=1;
+		currentLevel=2;
 		gameState= GameState.PLAYING;
-		Application.LoadLevel(currentLevel);
+		Application.LoadLevel("Level1");
 	}
 	public void QuitGame()
 	{
@@ -85,9 +85,13 @@ public class Game : MonoBehaviour {
 	}
 	void Win()
 	{
-		
+		currentLevel++;
 		EventManager.TriggerEvent("LevelEnded");
-		Application.LoadLevel(currentLevel+1);
+		
+		if(currentLevel>=6)//if you have completed the last level, load the win screen
+			Application.LoadLevel("Win");
+		else
+			Application.LoadLevel(1);
 	}
 	
 }

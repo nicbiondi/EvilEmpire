@@ -19,7 +19,7 @@ public class EventManager : MonoBehaviour {
 				
 				if (!eventManager)
 				{
-					Debug.LogError ("There needs to be one active EventManger script on a GameObject in your scene.");
+					Debug.Log ("There needs to be one active EventManger script on a GameObject in your scene.");
 				}
 				else
 				{
@@ -41,6 +41,8 @@ public class EventManager : MonoBehaviour {
 	
 	public static void StartListening (string eventName, UnityAction listener)
 	{
+		if(!instance)
+			return;//don't run this out of order
 		UnityEvent thisEvent = null;
 		if (instance.eventDictionary.TryGetValue (eventName, out thisEvent))
 		{
